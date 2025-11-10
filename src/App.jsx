@@ -3,7 +3,7 @@ import './App.css'
 
 export default function App() {
 
-  const articles = [
+  const initialArticles = [
     {
       "id": 1,
       "titolo": "Introduzione a JavaScript Moderno"
@@ -26,7 +26,22 @@ export default function App() {
     }
   ]
 
-  const [initialArticles, setinitialArticles] = useState(articles)
+  const [articlesList, setArticlesList] = useState(initialArticles)
+  const [newArticleTitle, setNewArticleTitle] = useState("")
+
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    const newArticle = {
+      id: articlesList.length + 1,
+      titolo: newArticleTitle
+    }
+
+    setArticlesList(articlesList => [...articlesList, newArticle])
+
+
+
+  }
 
   return (
     <>
@@ -36,17 +51,21 @@ export default function App() {
 
       <main>
         <div className="container">
+          <form onSubmit={handleSubmit} className="input-group mb-3">
+            <input type="text" className="form-control" placeholder="Add article title.." aria-label="article-title" aria-describedby="button-add-article" value={newArticleTitle} onChange={e => setNewArticleTitle(e.target.value)} />
+            <button className="btn btn-success" type="submit" id="btn-add-article">Add</button>
+          </form>
           <div className="card">
             <div className="card-header text-center fw-bold">
               <h3>MY ARTICLE</h3>
             </div>
             <ul className='list-group list-group-flush '>
               {
-                initialArticles.map(article => (
-                  <li className='list-group-item list-unstyled d-flex justify-content-between align-items-center py-3' key={article.id}>
-                    <p>{article.titolo}</p>
+                articlesList.map(article => (
+                  <li className='list-group-item list-unstyled d-flex justify-content-between align-items-center' key={article.id}>
+                    <p className='mb-0 py-3 '>{article.titolo}</p>
                     <button className='btn btn-danger'>
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </button>
                   </li>
                 ))
