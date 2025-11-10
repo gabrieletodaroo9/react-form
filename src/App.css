@@ -5,3 +5,20 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+header {
+    background-color: rgb(70, 135, 157);
+    color: white;
+    margin-bottom: 3rem;
+}
+
+input {
+    box-shadow: none !important;
+    border-color: green !important;
+
+    &:hover,
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(0, 128, 0, 0.3) !important;
+
+    }
+}
