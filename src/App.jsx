@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import ArticleForm from './components/ArticleForm'
-// import ArticleList from './components/ArticleList'
+import ArticleList from './components/ArticleList'
 export default function App() {
 
   const initialArticles = [
@@ -61,13 +61,13 @@ export default function App() {
     if (articleToEdit) {
       setIdInEdit(idModified)
       setCurrentEditTitle(articleToEdit.titolo)
-      console.log(idInEdit, setIdInEdit)
+      console.log(idInEdit, idModified)
     }
   }
 
   function handleSave(e) {
     e.preventDefault()
-    if (currentEditTitle.trim() == 0) {
+    if (currentEditTitle.trim() == "") {
       alert("Il campo non può restare vuoto")
       return
     }
@@ -89,7 +89,7 @@ export default function App() {
       <main>
         <div className="container">
           <ArticleForm newArticleTitle={newArticleTitle} setNewArticleTitle={setNewArticleTitle} handleSubmit={handleSubmit} />
-          {articlesList.length > 0 && (
+          {/* {articlesList.length > 0 && (
             <div className="card">
               <div className="card-header text-center fw-bold">
                 <h3>My article</h3>
@@ -98,32 +98,28 @@ export default function App() {
 
                 {articlesList.map(article => (
                   <li className='list-group-item list-unstyled d-flex justify-content-between align-items-center' key={article.id}>
-                    {idInEdit === article.id ? (
-                      <form onSubmit={handleSave} className='input-group py-3'>
-                        <input
-                          type="text"
-                          className='form-control'
-                          placeholder='Modifica..'
-                          value={currentEditTitle}
-                          onChange={e => setCurrentEditTitle(e.target.value)}
-                        />
-                        <button className='btn btn-success text-white' type='submit'>
-                          <i className="bi bi-check"></i>
-                        </button>
-                      </form>
-                    ) : (
-                      <>
-                        <p className='mb-0 py-3 '>{article.titolo}</p>
-                        <div>
-                          <button className='btn btn-warning me-2 text-white' onClick={() => handleModify(article.id)}>
-                            <i className="bi bi-pencil-fill"></i>
+                    {idInEdit === article.id ?
+                      (
+                        <form onSubmit={handleSave} className='input-group py-3'>
+                          <input type="text" className='form-control' placeholder='Modifica..' value={currentEditTitle} onChange={e => setCurrentEditTitle(e.target.value)}
+                          />
+                          <button className='btn btn-success text-white' type='submit'>
+                            <i className="bi bi-check"></i>
                           </button>
-                          <button className='btn btn-danger' onClick={() => handleDelete(article.id)}>
-                            <i className="bi bi-trash"></i>
-                          </button>
-                        </div>
-                      </>
-                    )}
+                        </form>
+                      ) : (
+                        <>
+                          <p className='mb-0 py-3 '>{article.titolo}</p>
+                          <div>
+                            <button className='btn btn-warning me-2 text-white' onClick={() => handleModify(article.id)}>
+                              <i className="bi bi-pencil-fill"></i>
+                            </button>
+                            <button className='btn btn-danger' onClick={() => handleDelete(article.id)}>
+                              <i className="bi bi-trash"></i>
+                            </button>
+                          </div>
+                        </>
+                      )}
                   </li>
                 ))}
 
@@ -132,7 +128,8 @@ export default function App() {
           )}
           {articlesList.length === 0 && (
             <h3 className='text-center text-dark mt-5'>Al momento non ci sono articoli nella lista!</h3>
-          )}
+          )} */}
+          <ArticleList articlesList={articlesList} onDelete={handleDelete} onModify={handleModify} idInEdit={idInEdit} onSave={handleSave} onCurrentEditTitle={setCurrentEditTitle} />
         </div>
       </main>
     </>
